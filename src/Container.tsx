@@ -1,5 +1,7 @@
 // //Props -> é utilizado para passar um valor diferente para cada componente em sua criação 
 
+
+
 // //States ->  Estados, salvam estados de variáveis do react e quando esses estados mudam 
 // // automaticamente o React entende que ele precisa atualizar a pagina para mostrar 
 // // os novos valores do componente
@@ -40,15 +42,16 @@
 // }
 // export default Container;
 
+import { useState } from "react";
 interface ContainerProps {
   nome: string;
 }
 function Container(props:ContainerProps){
-  let texto = "Texto antes de Mudar";
+  const [texto,setTexto] = useState("Texto antes de Mudar");
   function mudar() {
-    texto = "Texto depois de Mudar";
+    setTexto("Texto depois de Mudar");
   }
-  return(
+  return( 
     <>
       <h1>{props.nome}</h1>
       <p>{texto}</p>
