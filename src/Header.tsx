@@ -29,7 +29,7 @@ function Header() {
                     </li>
                 </ul>
             </nav>
-            <div className="container">
+            <div className="header-container">
                 <div>Logo</div>
                 <div>
                     <input type="text" placeholder="Buscar na Shopee"/>
