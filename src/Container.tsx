@@ -43,6 +43,7 @@
 // export default Container;
 
 import { useState } from "react";
+import "./Container.css";
 interface ProdutosState {
   id: number;
   nome: string;
@@ -72,7 +73,7 @@ function Container(){
       preco: parseFloat(preco),
       categoria
     };
-    setProdutos([...produtos, produtoNovo]);
+    setProdutos([...produtos, produtoNovo]); //copia dos produtos antigos e adiciona o novo produto
   }
     
   // Pegar os dados que a pessoa digitou no formulário
@@ -92,13 +93,13 @@ function Container(){
   return(
     <>
       <div className="container">
-        {produtos[0].nome}
+       {/* /**{produtos[0].nome} */  }
         <div className="container-cadastro">
             <form onSubmit={trataForm}>
-                <input type="text" name="id" id="id" onChange={trataId} />
-                <input type="text" name="nome" id="nome" onChange={trataNome} />
-                <input type="text" name="preco" id="preco" onChange={trataPreco} />
-                <input type="text" name="categoria" id="categoria" onChange={trataCategoria} />
+                <input type="text" name="id" id="id" placeholder="id" onChange={trataId} />
+                <input type="text" name="nome" id="nome" placeholder="nome" onChange={trataNome} />
+                <input type="text" name="preco" id="preco" placeholder="preco" onChange={trataPreco} />
+                <input type="text" name="categoria" id="categoria" placeholder="categoria" onChange={trataCategoria} />
                 <input type="submit" value="Cadastrar" />
             </form>
         </div>
