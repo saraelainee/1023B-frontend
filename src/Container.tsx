@@ -42,7 +42,7 @@
 // }
 // export default Container;
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Container.css";
 interface ProdutosState {
   id: number;
@@ -53,18 +53,28 @@ interface ProdutosState {
 
 function Container(){
   const [id,setId] = useState("");
-  const [nome,setNome] = useState("");
+  const [nome,setNome] = useState("");''
   const [preco,setPreco] = useState("");
+  const [erroMensagem,setErroMensagem] = useState("");
   const [categoria,setCategoria] = useState("");
+  
 
-  const [produtos,setProdutos] = useState<ProdutosState[]>([
-    {
-      id:1,
-      nome:"Computador",
-      preco: 3500,
-      categoria: "Informática"
+  const [produtos,setProdutos] = useState<ProdutosState[]>([]);
+    useEffect(() => {
+      const fetchData = async () => {
+        try{
+          const reposta = await fetch ("http://localhost:87000/produtos")
+          const result = await reposta.json();
+          setProdutos(result);
+        } catch(erro:any){
+          setErroMensagem("Erro ao realizar o fetch no backend");
+      }
     }
-  ]);
+      fetchData() 
+      },[])  //[] lista de dependências, se estiver vazia 
+  //significará que sera executado quando carregar a página
+
+
   function trataForm(event: React.FormEvent<HTMLFormElement>){
     event.preventDefault();
     const produtoNovo: ProdutosState = {
@@ -92,8 +102,14 @@ function Container(){
   }
   return(
     <>
+    {erroMensagem  &&
+    <div className="container-erro">
+      <p>{erroMensagem}</p>
+      </div>}
+
       <div className="container">
-       {/* /**{produtos[0].nome} */  }
+     
+       
         <div className="container-cadastro">
             <form onSubmit={trataForm}>
                 <input type="text" name="id" id="id" placeholder="id" onChange={trataId} />
